@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Advice</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      padding: 20px;
+    }
+    .logo {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .advice-container {
+      font-size: 1.2rem;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+    .home-button, .back-button {
+      position: absolute;
+      top: 20px;
+      padding: 10px;
+      background: #2575fc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      z-index: 10;
+    }
+    .home-button {
+      left: 20px;
+    }
+    .back-button {
+      right: 20px;
+    }
+    .home-button:hover, .back-button:hover {
+      background: #6a11cb;
+    }
+    .advice-container {
+      text-align: left;
+      margin-top: 40px;
+    }
+    button {
+      padding: 12px;
+      font-size: 1.2rem;
+      background: #ff7eb3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+      transition: background 0.3s ease-in-out;
+    }
+    button:hover {
+      background: #ff5286;
+    }
+  </style>
+</head>
+<body>
+  <button class="home-button" onclick="goHome()">Home</button>
+  <button class="back-button" onclick="goBack()">Back</button>
+  <div class="logo">App 4 Living</div>
+  <h2>Your Personalized Fitness Advice</h2>
+
+  <div class="advice-container" id="adviceContainer">
+    <!-- Detailed Fitness Advice Will Be Injected Here -->
+  </div>
+
+  <button onclick="goToHealthTrack()">Go to Health Tracker</button>
+
+  <script>
+    function goHome() {
+      window.location.href = "home.html";
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    function goToHealthTrack() {
+      window.location.href = "health_track.html";
+    }
+
+    window.onload = function() {
+      const userHealthInfo = JSON.parse(localStorage.getItem("userHealthInfo"));
+      let adviceText = "";
+
+      if (userHealthInfo.fitnessGoal === "loseWeight") {
+        adviceText = `
+          <h3>Tips for Losing Weight</h3>
+          <ul>
+            <li>Focus on a calorie deficit: Consume fewer calories than your body burns.</li>
+            <li>Incorporate cardiovascular exercises such as running, cycling, and swimming to burn more calories.</li>
+            <li>Eat a balanced diet with plenty of vegetables, lean protein, and whole grains.</li>
+            <li>Ensure you get enough sleep as poor sleep can disrupt metabolism and appetite-regulating hormones.</li>
+            <li>Drink plenty of water throughout the day to stay hydrated and curb unnecessary snacking.</li>
+            <li>Track your calories and workouts using an app or journal to stay on track with your goals.</li>
+          </ul>
+        `;
+      } else if (userHealthInfo.fitnessGoal === "maintainWeight") {
+        adviceText = `
+          <h3>Tips for Maintaining Weight</h3>
+          <ul>
+            <li>Keep your calorie intake consistent with your daily energy expenditure.</li>
+            <li>Engage in regular exercise, combining both cardio and strength training exercises.</li>
+            <li>Opt for smaller, more frequent meals throughout the day to keep metabolism active.</li>
+            <li>Don't skip meals—especially breakfast—as it can lead to overeating later in the day.</li>
+            <li>Track your steps daily to maintain an active lifestyle, even on rest days.</li>
+            <li>Keep hydrated to support optimal digestion and overall body function.</li>
+          </ul>
+        `;
+      } else if (userHealthInfo.fitnessGoal === "gainMuscle") {
+        adviceText = `
+          <h3>Tips for Gaining Muscle</h3>
+          <ul>
+            <li>Prioritize strength training with exercises like squats, deadlifts, and bench presses.</li>
+            <li>Consume more calories than you burn, focusing on nutrient-dense foods to support muscle growth.</li>
+            <li>Eat high-protein foods to repair muscles after workouts and encourage muscle synthesis.</li>
+            <li>Give your muscles time to recover by taking rest days between intense strength training sessions.</li>
+            <li>Stay consistent with your workout routine and progressively increase the weights you use to build strength.</li>
+            <li>Stay motivated by tracking your progress, whether through a fitness app or a workout journal.</li>
+          </ul>
+        `;
+      }
+
+      document.getElementById("adviceContainer").innerHTML = adviceText;
+    };
+  </script>
+</body>
+</html>

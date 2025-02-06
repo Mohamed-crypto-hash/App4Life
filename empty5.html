@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Motivation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      overflow: hidden;
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    .quote-container {
+      margin-top: 50px;
+      font-size: 1.5rem;
+      font-style: italic;
+      margin: 30px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      white-space: pre-line;
+      text-align: left;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      background: #2575fc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1.1rem;
+    }
+
+    .home-button:hover {
+      background: #6a11cb;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="home-button" onclick="goHome()">Home</button>
+
+  <div class="logo">App 4 Living</div>
+  <h2>Daily Motivation</h2>
+
+  <div class="quote-container" id="quoteContainer">
+    <!-- Quote will be inserted here -->
+  </div>
+
+  <script>
+    const quotes = [
+      "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful.\n\nSuccess comes from taking action, being consistent, and learning from mistakes. The journey may be long, but the lessons learned along the way make the destination even sweeter. Don’t be afraid of failure, because failure is just another stepping stone towards success.\n\nKeep going, even when the road seems tough. The obstacles are there to help you grow, and every challenge is an opportunity to push your limits and become better. Trust in yourself and the process. Every small step adds up, and soon you will look back and realize how far you’ve come.",
+      "The only limit to our realization of tomorrow is our doubts of today.\n\nIf you want to achieve greatness, you must first believe that you are capable of it. Doubts will always exist, but they do not define you. What defines you is your willingness to keep going despite the fear and uncertainty. Embrace each moment as an opportunity to grow, to learn, and to overcome the challenges in your way.\n\nDream big, but take small steps towards those dreams every day. The path to success is not a straight line, but every twist and turn is part of your unique journey. Keep your eyes on the goal, and take action. You are capable of more than you know, and your potential is limitless.",
+      "Believe you can and you’re halfway there.\n\nConfidence in yourself is the first step towards greatness. It’s easy to get discouraged by the challenges and setbacks along the way, but the key to overcoming them is a strong belief in your own abilities. When you believe in yourself, you gain the strength to face obstacles with determination and resilience.\n\nKeep your head high, stay focused on your goals, and push through the tough times. Even when things get hard, remind yourself that you’ve made it this far, and that’s something to be proud of. The future belongs to those who believe in themselves and take bold actions to shape it.",
+      "Your life does not get better by chance, it gets better by change.\n\nChange is inevitable, but it’s how we react to change that shapes our lives. If you want to improve, you must first be willing to embrace change. Growth requires stepping outside of your comfort zone, facing challenges head-on, and doing things differently. You have the power to change your life, but it starts with taking the first step.\n\nDon’t wait for the perfect moment to change. The perfect moment is right now. Take action, even if it’s a small one. Over time, these small actions will add up to big transformations. Don’t be afraid of change, because it’s the key to creating the life you want.",
+      "Success is the sum of small efforts, repeated day in and day out.\n\nEvery great achievement begins with a single step. The road to success is often built through small, consistent actions that may not seem significant at the time, but they add up over time. What matters is your persistence and commitment to your goals. It’s easy to get discouraged when progress feels slow, but remember that even small progress is progress.\n\nSo, stay focused, and keep putting in the work. Celebrate each small victory, because they all contribute to the larger picture of success. Remember that success is not about perfection, but about making steady, consistent efforts toward your dreams, day by day.",
+      "The best time to plant a tree was 20 years ago. The second best time is now.\n\nDon’t let regrets or missed opportunities hold you back from creating your future. The past is gone, but the present is a gift that can shape the life you want. It’s never too late to start pursuing your goals, learning something new, or making positive changes in your life.\n\nEvery moment is an opportunity for a fresh start. Don’t wait for the perfect time to begin – start now, even if you don’t have everything figured out. The important thing is that you’re moving forward. Take that first step today, and the rest will follow."
+    ];
+
+    // Display a random quote on load
+    window.onload = function() {
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quoteContainer").textContent = randomQuote;
+    };
+
+    // Go back to homepage
+    function goHome() {
+      window.location.href = "home.html";
+    }
+  </script>
+</body>
+</html>

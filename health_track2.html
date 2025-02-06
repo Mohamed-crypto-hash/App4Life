@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      padding: 20px;
+    }
+    .logo {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      font-size: 1.2rem;
+      width: 60%;
+      margin: 10px;
+      border-radius: 5px;
+    }
+    button {
+      padding: 12px;
+      font-size: 1.2rem;
+      background: #ff7eb3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease-in-out;
+    }
+    button:hover {
+      background: #ff5286;
+    }
+    .home-button, .back-button {
+      position: absolute;
+      top: 20px;
+      padding: 10px;
+      background: #2575fc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      z-index: 10;
+    }
+    .home-button {
+      left: 20px;
+    }
+    .back-button {
+      right: 20px;
+    }
+    .home-button:hover, .back-button:hover {
+      background: #6a11cb;
+    }
+  </style>
+</head>
+<body>
+  <button class="home-button" onclick="goHome()">Home</button>
+  <button class="back-button" onclick="goBack()">Back</button>
+  <div class="logo">App 4 Living</div>
+  <h2>Track Your Health and Fitness</h2>
+
+  <div>
+    <label for="steps">Enter Your Daily Steps:</label>
+    <input type="number" id="steps"><br>
+
+    <label for="walks">Enter Your Daily Walks (in km):</label>
+    <input type="number" id="walks"><br>
+
+    <label for="runs">Enter Your Daily Runs (in km):</label>
+    <input type="number" id="runs"><br>
+
+    <button onclick="saveHealthData()">Save Data</button>
+  </div>
+
+  <script>
+    function goHome() {
+      window.location.href = "home.html";
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    function saveHealthData() {
+      const steps = document.getElementById("steps").value;
+      const walks = document.getElementById("walks").value;
+      const runs = document.getElementById("runs").value;
+
+      const healthData = {
+        date: new Date().toLocaleDateString(),
+        steps,
+        walks,
+        runs
+      };
+
+      let healthTrack = JSON.parse(localStorage.getItem("healthTrack")) || [];
+      healthTrack.push(healthData);
+
+      localStorage.setItem("healthTrack", JSON.stringify(healthTrack));
+      alert("Your daily health data has been saved!");
+    }
+  </script>
+</body>
+</html>

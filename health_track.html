@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Health Info</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      padding: 20px;
+    }
+    .logo {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    input, select {
+      padding: 10px;
+      font-size: 1rem;
+      margin: 10px;
+      border-radius: 5px;
+      width: 60%;
+    }
+    button {
+      padding: 12px;
+      font-size: 1.2rem;
+      background: #ff7eb3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease-in-out;
+    }
+    button:hover {
+      background: #ff5286;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">App 4 Living</div>
+  <h2>Enter Your Health and Fitness Info</h2>
+  
+  <form id="healthForm">
+    <input type="text" id="name" placeholder="Enter your name" required><br>
+    <input type="number" id="age" placeholder="Enter your age" required><br>
+    <input type="number" id="height" placeholder="Enter your height (cm)" required><br>
+    <input type="number" id="weight" placeholder="Enter your weight (kg)" required><br>
+    <select id="fitnessGoal" required>
+      <option value="">Select your fitness goal</option>
+      <option value="loseWeight">Lose Weight</option>
+      <option value="maintainWeight">Maintain Weight</option>
+      <option value="gainMuscle">Gain Muscle</option>
+    </select><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById("healthForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const userInfo = {
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        height: document.getElementById("height").value,
+        weight: document.getElementById("weight").value,
+        fitnessGoal: document.getElementById("fitnessGoal").value
+      };
+
+      localStorage.setItem("userHealthInfo", JSON.stringify(userInfo));
+      alert("Your information has been saved! You will now receive fitness advice.");
+      window.location.href = "fitness_advice.html";
+    });
+  </script>
+</body>
+</html>

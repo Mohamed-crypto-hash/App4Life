@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Records</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      color: white;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .nav {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+    }
+
+    .nav i {
+      font-size: 2rem;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .nav i:hover {
+      transform: scale(1.2);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-top: 60px;
+      animation: slideDown 1.5s ease-in-out;
+    }
+
+    input, select {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 1.2rem;
+      width: 80%;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 1.2rem;
+      background: #256eff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background: #0044ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <i class="fas fa-home" onclick="goHome()"></i>
+    <i class="fas fa-arrow-left" onclick="goBack()"></i>
+  </div>
+  <h1>Welcome <span id="username"></span> to the Records Page!Please enter here what you have experienced in your day and you want to save and remeber.Feel free to write anything.</h1>
+
+  <input type="text" id="recordInput" placeholder="Today I ...">
+  <select id="reaction">
+    <option value="😊">😊 Happy</option>
+    <option value="😢">😢 Sad</option>
+    <option value="😡">😡 Angry</option>
+    <option value="😎">😎 Cool</option>
+    <option value="😂">😂 Funny</option>
+  </select>
+  <button onclick="addInput()">+</button>
+  <button onclick="saveRecord()">Save</button>
+  <button onclick="location.href='saved_records.html'">View Saved Records</button>
+
+  <script>
+    document.getElementById("username").innerText = localStorage.getItem("username") || "User";
+
+    function goHome() { window.location.href = "home.html"; }
+    function goBack() { window.history.back(); }
+
+    function addInput() {
+      let newInput = document.createElement("input");
+      newInput.type = "text";
+      newInput.placeholder = "Today I was great for...";
+      newInput.style.width = "80%";
+      document.body.insertBefore(newInput, document.querySelector("button"));
+    }
+
+    function saveRecord() {
+      let text = document.getElementById("recordInput").value;
+      let emoji = document.getElementById("reaction").value;
+      let date = new Date().toLocaleDateString();
+      
+      if (!text) return alert("Please enter a record!");
+
+      let savedRecords = JSON.parse(localStorage.getItem("records")) || [];
+      savedRecords.push({ text, emoji, date });
+      localStorage.setItem("records", JSON.stringify(savedRecords));
+
+      alert("Record saved!");
+    }
+  </script>
+</body>
+</html>

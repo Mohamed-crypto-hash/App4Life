@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Mode</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      overflow: hidden;
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    .timer {
+      font-size: 3rem;
+      margin-top: 50px;
+    }
+
+    .control-buttons {
+      margin-top: 20px;
+    }
+
+    .control-button {
+      padding: 10px 20px;
+      background: #ff7eb3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    .control-button:hover {
+      background: #ff5286;
+    }
+
+    .timer-controls {
+      margin-top: 20px;
+    }
+
+    .end-button {
+      padding: 10px;
+      background: #ff7eb3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .end-button:hover {
+      background: #ff5286;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="logo">App 4 Living</div>
+  <h2>Focus Mode</h2>
+  
+  <!-- Countdown Timer -->
+  <p>Countdown Timer to End Time:</p>
+  <div class="timer" id="countdownTimer">00:00</div>
+
+  <!-- Elapsed Time Timer -->
+  <p>Time until End Button Clicked:</p>
+  <div class="timer" id="elapsedTimer">00:00</div>
+
+  <!-- Timer Controls -->
+  <div class="timer-controls">
+    <button class="control-button" id="pauseButton" onclick="pauseTimer()">Pause</button>
+    <button class="control-button" id="resumeButton" onclick="resumeTimer()" style="display:none;">Resume</button>
+    <button class="control-button" onclick="resetTimer()">Reset</button>
+  </div>
+
+  <!-- Focus Mode Control Buttons -->
+  <div class="control-buttons">
+    <button class="control-button" onclick="goHome()">Home</button>
+    <button class="control-button" onclick="goBack()">Back</button>
+  </div>
+
+  <button class="end-button" onclick="endFocusMode()">End</button>
+
+  <script>
+    let focusTime = new Date(localStorage.getItem("focusTime"));
+    let startTime = new Date().getTime();
+    let paused = false;
+    let focusInterval;
+    let elapsedInterval;
+    
+    // Timer variables for elapsed time
+    let elapsedTime = 0;
+    let elapsedTimerElement = document.getElementById("elapsedTimer");
+    let countdownTimerElement = document.getElementById("countdownTimer");
+
+    // Start the focus countdown timer
+    function startFocusMode() {
+      focusInterval = setInterval(updateFocusTime, 1000);
+      elapsedInterval = setInterval(updateElapsedTime, 1000);
+    }
+
+    // Update countdown timer
+    function updateFocusTime() {
+      if (paused) return;
+
+      let currentTime = new Date();
+      let remainingTime = new Date(focusTime - currentTime);
+
+      // Update countdown timer
+      let mins = String(remainingTime.getUTCMinutes()).padStart(2, "0");
+      let secs = String(remainingTime.getUTCSeconds()).padStart(2, "0");
+      countdownTimerElement.textContent = `${mins}:${secs}`;
+    }
+
+    // Update elapsed time timer
+    function updateElapsedTime() {
+      if (paused) return;
+
+      elapsedTime += 1; // Increase by 1 second
+      let mins = String(Math.floor(elapsedTime / 60)).padStart(2, "0");
+      let secs = String(elapsedTime % 60).padStart(2, "0");
+      elapsedTimerElement.textContent = `${mins}:${secs}`;
+    }
+
+    // Pause the elapsed timer
+    function pauseTimer() {
+      paused = true;
+      document.getElementById("pauseButton").style.display = "none";
+      document.getElementById("resumeButton").style.display = "inline-block";
+    }
+
+    // Resume the elapsed timer
+    function resumeTimer() {
+      paused = false;
+      document.getElementById("pauseButton").style.display = "inline-block";
+      document.getElementById("resumeButton").style.display = "none";
+    }
+
+    // Reset the timer to 00:00 when the "End" button is clicked
+    function resetTimer() {
+      elapsedTime = 0;
+      elapsedTimerElement.textContent = "00:00";
+    }
+
+    // Go back to the homepage
+    function goHome() {
+      window.location.href = "home.html";
+    }
+
+    // Go back to the previous page
+    function goHome() { window.location.href = "your_schedule.html"; }
+
+    // End focus mode (stop all timers)
+    function endFocusMode() {
+      clearInterval(focusInterval);
+      clearInterval(elapsedInterval);
+      localStorage.setItem("startTime", new Date().getTime());
+      window.location.href = "your_schedule.html";
+    }
+
+    // Start the timers when the page loads
+    window.onload = function() {
+      startFocusMode();
+    };
+  </script>
+</body>
+</html>

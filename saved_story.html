@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Story</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .nav {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .nav i {
+      font-size: 2rem;
+      color: #007bff;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .nav i:hover {
+      transform: scale(1.2);
+    }
+
+    .header {
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .story-container {
+      width: 80%;
+      max-width: 900px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .buttons-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
+
+    .buttons-container button {
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .buttons-container button:hover {
+      background-color: #218838;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <i class="fas fa-home" onclick="goHome()"></i>
+    <i class="fas fa-arrow-left" onclick="goBack()"></i>
+  </div>
+
+  <div class="header">
+    <h1>Your Saved Story</h1>
+    <p>Below is the story you wrote!</p>
+  </div>
+
+  <div class="story-container" id="story-container">
+    <!-- Saved story content will be dynamically added here -->
+  </div>
+
+  <div class="buttons-container">
+    <button onclick="goHome()">Go Home</button>
+    <button onclick="goBack()">Back to Story Editor</button>
+  </div>
+
+  <script>
+    // Load saved story content from localStorage or default if not found
+    function loadStory() {
+      const savedStory = localStorage.getItem('savedStory');
+      const storyContainer = document.getElementById('story-container');
+
+      if (savedStory) {
+        storyContainer.innerHTML = savedStory;
+      } else {
+        storyContainer.innerHTML = "<p>No story saved yet. Please save your story first.</p>";
+      }
+    }
+
+    // Function to handle 'Go Home' button click
+    function goHome() {
+      window.location.href = "index.html"; // Redirect to Home page
+    }
+
+    // Function to handle 'Go Back' button click
+    function goBack() { window.location.href = "your_daily_write.html"; }
+
+    // Load the story when the page is loaded
+    window.onload = loadStory;
+  </script>
+
+</body>
+</html>

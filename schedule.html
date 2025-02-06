@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Schedule</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      overflow: hidden;
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    .input-container {
+      margin: 20px;
+    }
+
+    label {
+      font-size: 1.2rem;
+    }
+
+    input, select, textarea {
+      padding: 10px;
+      font-size: 1.2rem;
+      width: 70%;
+      border-radius: 5px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: none;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 1.2rem;
+      background: #ff7eb3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background: #ff5286;
+    }
+
+    .go-home-button {
+      margin-top: 20px;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      background: #2575fc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1.1rem;
+    }
+
+    .home-button:hover {
+      background: #6a11cb;
+    }
+  </style>
+</head>
+<body>
+  <button class="home-button" onclick="goHome()">Home</button>
+
+  <div class="logo">App 4 Living</div>
+  <h2>Your Schedule</h2>
+
+  <div class="input-container">
+    <label for="taskName">Task Name:</label><br>
+    <input type="text" id="taskName" placeholder="Enter task name"><br>
+
+    <label for="startDate">Starting Date:</label><br>
+    <input type="datetime-local" id="startDate"><br>
+
+    <label for="endDate">Ending Date:</label><br>
+    <input type="datetime-local" id="endDate"><br>
+
+    <label for="importance">Task Importance (1-10):</label><br>
+    <select id="importance">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select><br>
+
+    <label for="notes">Comments and Notes:</label><br>
+    <textarea id="notes" placeholder="Add your notes here" rows="4" cols="50"></textarea><br>
+
+    <button onclick="saveTask()">Save Task</button>
+  </div>
+
+  <div class="go-home-button">
+    <button onclick="goHome()">Go to Home</button>
+  </div>
+
+  <script>
+    // Save Task Function
+    function saveTask() {
+      const taskName = document.getElementById("taskName").value;
+      const startDate = document.getElementById("startDate").value;
+      const endDate = document.getElementById("endDate").value;
+      const importance = document.getElementById("importance").value;
+      const notes = document.getElementById("notes").value;
+
+      if (taskName && startDate && endDate && importance && notes) {
+        const task = {
+          taskName: taskName,
+          startDate: startDate,
+          endDate: endDate,
+          importance: importance,
+          notes: notes
+        };
+
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.push(task);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+
+        alert("Task saved successfully!");
+        clearForm();
+      } else {
+        alert("Please fill in all fields.");
+      }
+    }
+
+    // Clear form fields after saving task
+    function clearForm() {
+      document.getElementById("taskName").value = "";
+      document.getElementById("startDate").value = "";
+      document.getElementById("endDate").value = "";
+      document.getElementById("importance").value = "1";
+      document.getElementById("notes").value = "";
+    }
+
+    // Go back to the homepage
+    function goHome() {
+      window.location.href = "home.html";
+    }
+  </script>
+</body>
+</html>

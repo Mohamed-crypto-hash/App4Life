@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Schedule</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      overflow: hidden;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: bold;
+      animation: bounce 2s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    .task-list {
+      margin-top: 20px;
+    }
+
+    .task-item {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+
+    .focus-button {
+      padding: 10px;
+      background: #ff7eb3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .focus-button:hover {
+      background: #ff5286;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">App 4 Living</div>
+  <p>Your Saved Tasks</p>
+
+  <div class="task-list" id="taskList"></div>
+
+  <script>
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const taskList = document.getElementById("taskList");
+
+    tasks.forEach(task => {
+      const taskItem = document.createElement("div");
+      taskItem.classList.add("task-item");
+      taskItem.innerHTML = `
+        <h3>${task.taskName}</h3>
+        <p>Start: ${task.startTime} | End: ${task.endTime}</p>
+        <p>Notes: ${task.taskNotes}</p>
+        <p>Importance: ${task.taskImportance}</p>
+        <button class="focus-button" onclick="startFocusMode('${task.endTime}')">Focus Mode</button>
+      `;
+      taskList.appendChild(taskItem);
+    });
+
+    function startFocusMode(endTime) {
+      localStorage.setItem("focusTime", endTime);
+      window.location.href = "focus_mode.html";
+    }
+  </script>
+</body>
+</html>
